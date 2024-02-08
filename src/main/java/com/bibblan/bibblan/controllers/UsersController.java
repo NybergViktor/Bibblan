@@ -1,6 +1,5 @@
 package com.bibblan.bibblan.controllers;
 
-import com.bibblan.bibblan.models.Books;
 import com.bibblan.bibblan.models.Users;
 import com.bibblan.bibblan.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +28,13 @@ public class UsersController {
         return usersService.getAllUsers();
     }
 
+
+
     // PUT
     // UPDATE user
-    @PutMapping()
-    public Users updateUsers(@RequestBody Users users) {
-        return usersService.updateUsers(users);
+    @PutMapping("/update/{id}")
+    public Users updateUsers(@PathVariable String id, @RequestBody Users usersDetails) {
+        return usersService.updateUsers(usersDetails);
     }
 
     // GET by id
@@ -45,7 +46,7 @@ public class UsersController {
 
     // DELETE
     // Delete user
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteUsers(@PathVariable String id) {
         return usersService.deleteUsers(id);
     }

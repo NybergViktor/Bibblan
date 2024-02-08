@@ -10,6 +10,7 @@ public class Users {
     private String email;
 
     private int age;
+    private String password;
 
     public Users() {
     }
@@ -40,5 +41,13 @@ public class Users {
 
     public String getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
