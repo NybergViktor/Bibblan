@@ -7,6 +7,8 @@ public class Books {
     @Id
     private String id;
     private String title;
+
+    private String author;
     private String description;
 
     private int price;
@@ -50,5 +52,13 @@ public class Books {
 
     public String getId() {
         return id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
