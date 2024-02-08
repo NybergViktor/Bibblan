@@ -12,10 +12,12 @@ public class BorrowedBooksService {
     @Autowired
     BorrowedBooksRepository borrowedBooksRepository;
 
-    // add a new list of borrowed books
-    public BorrowedBooks createBorrowedBooks(BorrowedBooks borrowedBooks) {
+    // skapa ett recept
+    public BorrowedBooks addBorrowedBooks(BorrowedBooks borrowedBooks) {
         return borrowedBooksRepository.save(borrowedBooks);
     }
+
+
 
     // get a list with all BorrowedBooks
     public List<BorrowedBooks> getAllBorrowedBooks() {
@@ -23,7 +25,7 @@ public class BorrowedBooksService {
     }
 
     // update a BorrowedBooks returningDate
-    public BorrowedBooks updateBorrowedBooks(BorrowedBooks borrowedBooks) {
+    public BorrowedBooks updateBorrowedBooks(String id, BorrowedBooks borrowedBooks) {
         return borrowedBooksRepository.save(borrowedBooks);
     }
 
@@ -37,5 +39,6 @@ public class BorrowedBooksService {
         borrowedBooksRepository.deleteById(id);
         return "User with id: " + id + " has been deleted";
     }
+
 
 }
