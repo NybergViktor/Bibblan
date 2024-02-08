@@ -30,10 +30,15 @@ public class BooksController {
 
     // PUT
     // UPDATE book
-    @PutMapping()
-    public Books updateBooks(@RequestBody Books books) {
-        return booksService.updateBooks(books);
+    @PutMapping("/update/{id}")
+    public Books updateBooks(@PathVariable String id,  @RequestBody Books booksDetails) {
+
+
+
+        return booksService.updateBooks(booksDetails);
     }
+
+
 
     // GET by id
     // GET a book using id
@@ -44,7 +49,7 @@ public class BooksController {
 
     // DELETE
     // Delete book
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteBooks(@PathVariable String id) {
         return booksService.deleteBooks(id);
     }
