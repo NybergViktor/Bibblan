@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 public class Books {
 
     @Id
-    private String id;
+    private String id; //individuellt id för Books
     private String title;
 
     private String author;

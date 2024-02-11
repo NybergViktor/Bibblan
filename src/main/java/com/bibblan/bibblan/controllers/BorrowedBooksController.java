@@ -18,6 +18,7 @@ public class BorrowedBooksController {
 
 
     // POST
+    //, skapar en ny lista med lånade böcker med hjälp av constructor i BorrowedBooks
     @PostMapping
     public ResponseEntity<BorrowedBooks> addBorrowedBooks(@RequestBody BorrowedBooks borrowedBooks) {
         BorrowedBooks newBorrowedBooks = borrowedBooksService.addBorrowedBooks(borrowedBooks);
@@ -34,6 +35,7 @@ public class BorrowedBooksController {
 
 
     // PUT
+    //Uppdatera listan med borrowedbooks
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateBorrowedBooks(@PathVariable String id,  @RequestBody BorrowedBooks borrowedBooksDetails) {
         try {

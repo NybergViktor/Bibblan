@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 public class Users {
 
     @Id
-    private String id;
+    private String id; //id för users
     private String name;
     private String email;
 
