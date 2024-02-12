@@ -10,6 +10,6 @@ To run this application, first:
 4. Import/Run API in Postman using this link:
    https://documenter.getpostman.com/view/32298175/2sA2r3Z5hM
 6. Return to IntelliJ and Run application from file: BibblanApplication
-7. Ready to go, try all the different pre-saved requests.
+7. Ready to go, try all the different pre-saved requests in Postman.
 
    
