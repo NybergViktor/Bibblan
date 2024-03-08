@@ -12,10 +12,11 @@ public class BorrowedBooks {
 
     @Id
     private String id; //Vårt id som vi sedan kan använda som reference
+
     @DBRef
     private Users userId;  //userId reference
 
-    private List<Books> bookId = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
+    private List<Books> bookList = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -29,7 +30,7 @@ public class BorrowedBooks {
     }
 
     //jag ville ha att en låningsperiod som standard är 1 månad, metoden nedan hämtar nuvarande datum i calendar och lägger på en månad.
-    //detta blir sedan returningDate. MEN man kan ändra returningdate via en update i Postman om man vill ha något annat än 30 dagar
+    //detta blir sedan returningDate. standard är 1 månad
     public static String addToCurrentDate(){
 
         DateFormat dateFormat = new SimpleDateFormat();
@@ -40,15 +41,6 @@ public class BorrowedBooks {
     }
 
 
-
-
-    public Users getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Users userId) {
-        this.userId = userId;
-    }
 
 
 
@@ -72,11 +64,30 @@ public class BorrowedBooks {
         this.createdAt = createdAt;
     }
 
-    public List<Books> getBookId() {
-        return bookId;
+
+
+
+
+
+
+
+
+
+
+
+    public Users getUserId() {
+        return userId;
     }
 
-    public void setBookId(List<Books> bookId) {
-        this.bookId = bookId;
+    public void setUserId(Users userId) {
+        this.userId = userId;
+    }
+
+    public List<Books> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Books> bookList) {
+        this.bookList = bookList;
     }
 }
