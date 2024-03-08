@@ -32,25 +32,23 @@ public class BooksController {
     // UPDATE book
     @PutMapping("/update/{id}")
     public Books updateBooks(@PathVariable String id,  @RequestBody Books booksDetails) {
-
-
-
         return booksService.updateBooks(booksDetails);
     }
 
 
+    //Example
 
     // GET by id
     // GET a book using id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Books getBooksById(@PathVariable String id) {
-        return booksService.booksById(id);
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public Books getBooksById(@RequestBody Books books) {
+        return booksService.booksById(books);
     }
 
     // DELETE
     // Delete book
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public String deleteBooks(@PathVariable String id) {
-        return booksService.deleteBooks(id);
+    public String deleteBooks(@PathVariable String id, @RequestBody Books books) {
+        return booksService.deleteBooks(books);
     }
 }

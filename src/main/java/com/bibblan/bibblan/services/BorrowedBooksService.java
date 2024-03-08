@@ -12,7 +12,7 @@ public class BorrowedBooksService {
     @Autowired
     BorrowedBooksRepository borrowedBooksRepository;
 
-    // skapa ett recept
+    // skapa en lista med borrowedBooks
     public BorrowedBooks addBorrowedBooks(BorrowedBooks borrowedBooks) {
         return borrowedBooksRepository.save(borrowedBooks);
     }

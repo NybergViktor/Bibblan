@@ -24,18 +24,24 @@ public class BooksService {
 
     // update a books information
     public Books updateBooks(Books books) {
+        Books newBook = booksRepository.findById(books.getId())
+                .orElseThrow(() -> new RuntimeException("BookId does not exist"));
         return booksRepository.save(books);
     }
 
     // get a specifik book using id
-    public Books booksById(String id) {
-        return booksRepository.findById(id).get();
+    public Books booksById(Books books) {
+        Books newBook = booksRepository.findById(books.getId())
+                .orElseThrow(() -> new RuntimeException("BookId does not exist"));
+        return booksRepository.findById(books.getId()).get();
     }
 
     // delete book
-    public String deleteBooks(String id) {
-        booksRepository.deleteById(id);
-        return "Book with id: " + id + " has been deleted";
+    public String deleteBooks(Books books) {
+        Books newBook = booksRepository.findById(books.getId())
+                .orElseThrow(() -> new RuntimeException("BookId does not exist"));
+        booksRepository.deleteById(books.getId());
+        return "Book with id: " + books.getTitle() + " has been deleted";
     }
 
 }

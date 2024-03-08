@@ -2,6 +2,7 @@ package com.bibblan.bibblan.models;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,9 +12,10 @@ public class BorrowedBooks {
 
     @Id
     private String id; //Vårt id som vi sedan kan använda som reference
-    private String userId;
+    @DBRef
+    private Users userId;  //userId reference
 
-    private List<String> bookId = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
+    private List<Books> bookId = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -40,11 +42,11 @@ public class BorrowedBooks {
 
 
 
-    public String getUserId() {
+    public Users getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Users userId) {
         this.userId = userId;
     }
 
@@ -70,11 +72,11 @@ public class BorrowedBooks {
         this.createdAt = createdAt;
     }
 
-    public List<String> getBookId() {
+    public List<Books> getBookId() {
         return bookId;
     }
 
-    public void setBookId(List<String> bookId) {
+    public void setBookId(List<Books> bookId) {
         this.bookId = bookId;
     }
 }
