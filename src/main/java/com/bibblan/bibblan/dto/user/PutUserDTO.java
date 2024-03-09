@@ -1,22 +1,13 @@
-package com.bibblan.bibblan.models;
+package com.bibblan.bibblan.dto.user;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class PutUserDTO {
 
-@Document(collection = "users")
-public class Users {
 
-    @Id
-    private String id; //id för users
-
+    private String id;
     private String name;
     private String email;
-
     private int age;
     private String password;
-
-    public Users() {
-    }
 
     public String getName() {
         return name;
@@ -42,15 +33,15 @@ public class Users {
         this.age = age;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getId() {
+        return id;
     }
 }

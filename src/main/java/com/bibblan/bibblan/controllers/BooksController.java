@@ -1,11 +1,14 @@
 package com.bibblan.bibblan.controllers;
 
-import com.bibblan.bibblan.models.Books;
+import com.bibblan.bibblan.dto.books.FindBookDTO;
+import com.bibblan.bibblan.dto.books.PostBookDTO;
+import com.bibblan.bibblan.dto.books.PutBookDTO;
+import com.bibblan.bibblan.exception.EntityNotFoundException;
 import com.bibblan.bibblan.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value="/api/books")
@@ -17,40 +20,55 @@ public class BooksController {
     // POST
     // add a new book
     @PostMapping()
-    public Books createBook(@RequestBody Books books) {
-        return booksService.createBooks(books);
+    public ResponseEntity<?> createBook(@RequestBody PostBookDTO postBookDTO) {
+        return booksService.createBooks(postBookDTO);
     }
 
     // GET
     // GET all books
     @GetMapping("/all")
-    public List<Books> getAllBooks() {
-        return booksService.getAllBooks();
+    public ResponseEntity<?> getAllBooks() {
+        try {
+            return ResponseEntity.ok(booksService.getAllBooks());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // PUT
     // UPDATE book
-    @PutMapping("/update/{id}")
-    public Books updateBooks(@PathVariable String id,  @RequestBody Books booksDetails) {
-
-
-
-        return booksService.updateBooks(booksDetails);
+    @PutMapping()
+    public ResponseEntity<?> updateBooks(@RequestBody PutBookDTO putBookDTO) {
+        try {
+            return booksService.updateBooks(putBookDTO);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
+
 
 
 
     // GET by id
     // GET a book using id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Books getBooksById(@PathVariable String id) {
-        return booksService.booksById(id);
+    @GetMapping( "/find")
+    public ResponseEntity<?> getBooksById(@RequestBody FindBookDTO findBookDTO) {
+        try {
+            return booksService.booksById(findBookDTO);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // DELETE
     // Delete book
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public String deleteBooks(@PathVariable String id) {
-        return booksService.deleteBooks(id);
+
+    @DeleteMapping()
+    public ResponseEntity<?> deleteBooks(@RequestBody FindBookDTO findBookDTO) {
+        try {
+            return booksService.deleteBooks(findBookDTO);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

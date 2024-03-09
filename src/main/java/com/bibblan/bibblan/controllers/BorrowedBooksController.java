@@ -1,5 +1,8 @@
 package com.bibblan.bibblan.controllers;
 
+import com.bibblan.bibblan.dto.BB.FindBBDTO;
+import com.bibblan.bibblan.dto.BB.PostBBDTO;
+import com.bibblan.bibblan.dto.BB.PutBBDTO;
 import com.bibblan.bibblan.exception.EntityNotFoundException;
 import com.bibblan.bibblan.models.BorrowedBooks;
 import com.bibblan.bibblan.services.BorrowedBooksService;
@@ -8,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value="/api/borrowedBooks")
+@RequestMapping(value="/api/borrowedbooks")
 public class BorrowedBooksController {
     @Autowired
     BorrowedBooksService borrowedBooksService;
@@ -19,27 +20,33 @@ public class BorrowedBooksController {
 
     // POST
     //, skapar en ny lista med lånade böcker med hjälp av constructor i BorrowedBooks
-    @PostMapping
-    public ResponseEntity<BorrowedBooks> addBorrowedBooks(@RequestBody BorrowedBooks borrowedBooks) {
-        BorrowedBooks newBorrowedBooks = borrowedBooksService.addBorrowedBooks(borrowedBooks);
-        return new ResponseEntity<>(newBorrowedBooks, HttpStatus.CREATED);
+    @PostMapping()
+    public ResponseEntity<?> addBorrowedBooks(@RequestBody PostBBDTO postBBDTO) {
+        try {
+            BorrowedBooks newBorrowedBooks = borrowedBooksService.addBorrowedBooks(postBBDTO);
+            return new ResponseEntity<>(newBorrowedBooks, HttpStatus.CREATED);
+
+        } catch (EntityNotFoundException e){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+        }
     }
 
 
     // GET
-    // GET all books
+    // GET all borrowedBooks
     @GetMapping("/all")
-    public List<BorrowedBooks> getAllBorrowedBooks() {
-        return borrowedBooksService.getAllBorrowedBooks();
+    public ResponseEntity<?> getAllBorrowedBooks() {
+          return  borrowedBooksService.getAllBorrowedBooks();
     }
 
 
     // PUT
     //Uppdatera listan med borrowedbooks
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateBorrowedBooks(@PathVariable String id,  @RequestBody BorrowedBooks borrowedBooksDetails) {
+    @PutMapping()
+    public ResponseEntity<?> updateBorrowedBooks(@RequestBody PutBBDTO putBBDTO) {
         try {
-            BorrowedBooks updatedBorrowedBooks = borrowedBooksService.updateBorrowedBooks(id, borrowedBooksDetails);
+            BorrowedBooks updatedBorrowedBooks = borrowedBooksService.updateBorrowedBooks(putBBDTO);
             return ResponseEntity.ok(updatedBorrowedBooks);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -49,16 +56,27 @@ public class BorrowedBooksController {
 
 
     // GET by id
-    // GET a book using id
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public BorrowedBooks getBorrowedBooksById(@PathVariable String id) {
-        return borrowedBooksService.borrowedBooksById(id);
+    // GET a borrowedBooks list using id
+
+    @GetMapping("/find")
+    public ResponseEntity<?> getBorrowedBooksById(@RequestBody FindBBDTO findBBDTO) {
+
+        try {
+            return borrowedBooksService.borrowedBooksById(findBBDTO);
+        } catch (EntityNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+
     }
 
     // DELETE
-    // Delete book
-    @RequestMapping(value = "/endLoan/{id}", method = RequestMethod.DELETE)
-    public String deleteBorrowedBooks(@PathVariable String id) {
-        return borrowedBooksService.deleteBorrowedBooks(id);
+    // Delete book from borrowedBooks
+    @DeleteMapping( "/endLoan")
+    public ResponseEntity<?> deleteBorrowedBooks(@RequestBody FindBBDTO findBBDTO) {
+        try {
+            return borrowedBooksService.deleteBorrowedBooks(findBBDTO);
+        } catch (EntityNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

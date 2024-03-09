@@ -2,6 +2,7 @@ package com.bibblan.bibblan.models;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,9 +12,11 @@ public class BorrowedBooks {
 
     @Id
     private String id; //Vårt id som vi sedan kan använda som reference
-    private String userId;
 
-    private List<String> bookId = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
+    @DBRef
+    private Users userId;  //userId reference
+
+    private List<String> bookList = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -27,7 +30,7 @@ public class BorrowedBooks {
     }
 
     //jag ville ha att en låningsperiod som standard är 1 månad, metoden nedan hämtar nuvarande datum i calendar och lägger på en månad.
-    //detta blir sedan returningDate. MEN man kan ändra returningdate via en update i Postman om man vill ha något annat än 30 dagar
+    //detta blir sedan returningDate. standard är 1 månad
     public static String addToCurrentDate(){
 
         DateFormat dateFormat = new SimpleDateFormat();
@@ -38,15 +41,6 @@ public class BorrowedBooks {
     }
 
 
-
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
 
 
@@ -70,11 +64,30 @@ public class BorrowedBooks {
         this.createdAt = createdAt;
     }
 
-    public List<String> getBookId() {
-        return bookId;
+
+
+
+
+
+
+
+
+
+
+
+    public Users getUserId() {
+        return userId;
     }
 
-    public void setBookId(List<String> bookId) {
-        this.bookId = bookId;
+    public void setUserId(Users userId) {
+        this.userId = userId;
+    }
+
+    public List<String> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<String> bookList) {
+        this.bookList = bookList;
     }
 }
