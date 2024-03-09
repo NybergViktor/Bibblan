@@ -31,20 +31,18 @@ public class BorrowedBooksService {
         BorrowedBooks borrowedBooks = new BorrowedBooks();
         borrowedBooks.setUserId(foundUser);
         borrowedBooks.setBookList(postBBDTO.getBookList());
-
-
         return borrowedBooksRepository.save(borrowedBooks);
+
+
     }
 
 
 
     // get a list with all BorrowedBooks
-    public List<BorrowedBooks> getAllBorrowedBooks() {
-        try {
-            return borrowedBooksRepository.findAll();
-        } catch (NullPointerException p){
-            throw new RuntimeException("Could not find any BorrowedBooks");
-        }
+    public ResponseEntity<?> getAllBorrowedBooks() {
+        List<BorrowedBooks> booksList = borrowedBooksRepository.findAll();
+        return ResponseEntity.ok(booksList);
+
     }
 
     // update a BorrowedBooks

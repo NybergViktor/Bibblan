@@ -16,7 +16,7 @@ public class BorrowedBooks {
     @DBRef
     private Users userId;  //userId reference
 
-    private List<Books> bookList = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
+    private List<String> bookList = new ArrayList<>(); //Should be able to borrow multiple books per list, valde därför att lägga dessa i en ArrayList
     @CreatedDate
     private Date createdAt = new Date();
 
@@ -83,11 +83,11 @@ public class BorrowedBooks {
         this.userId = userId;
     }
 
-    public List<Books> getBookList() {
+    public List<String> getBookList() {
         return bookList;
     }
 
-    public void setBookList(List<Books> bookList) {
+    public void setBookList(List<String> bookList) {
         this.bookList = bookList;
     }
 }

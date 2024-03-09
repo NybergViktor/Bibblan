@@ -1,14 +1,12 @@
 package com.bibblan.bibblan.dto.BB;
 
-import com.bibblan.bibblan.models.Books;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PutBBDTO {
     private String id;
     private String userId;
-    private List<Books> bookList = new ArrayList<>();
+    private List<String> bookList = new ArrayList<>();
 
 
 
@@ -30,11 +28,11 @@ public class PutBBDTO {
         this.id = id;
     }
 
-    public List<Books> getBookList() {
+    public List<String> getBookList() {
         return bookList;
     }
 
-    public void setBookList(List<Books> bookList) {
+    public void setBookList(List<String> bookList) {
         this.bookList = bookList;
     }
 }

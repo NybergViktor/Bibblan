@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value="/api/borrowedbooks")
 public class BorrowedBooksController {
@@ -25,7 +23,8 @@ public class BorrowedBooksController {
     @PostMapping()
     public ResponseEntity<?> addBorrowedBooks(@RequestBody PostBBDTO postBBDTO) {
         try {
-            return ResponseEntity.ok(borrowedBooksService.addBorrowedBooks(postBBDTO));
+            BorrowedBooks newBorrowedBooks = borrowedBooksService.addBorrowedBooks(postBBDTO);
+            return new ResponseEntity<>(newBorrowedBooks, HttpStatus.CREATED);
 
         } catch (EntityNotFoundException e){
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -37,11 +36,8 @@ public class BorrowedBooksController {
     // GET
     // GET all borrowedBooks
     @GetMapping("/all")
-    public List<BorrowedBooks> getAllBorrowedBooks() {
-
+    public ResponseEntity<?> getAllBorrowedBooks() {
           return  borrowedBooksService.getAllBorrowedBooks();
-
-
     }
 
 
